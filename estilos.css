@@ -1,1 +1,222 @@
+/* Variables CSS para colores */
+:root {
+    --primary-color: #3498db; /* Azul vibrante */
+    --secondary-color: #2980b9; /* Azul más oscuro para detalles */
+    --accent-color: #87ceeb; /* Celeste claro */
+    --background-color: #ecf0f1; /* Gris claro para el fondo */
+    --card-background: #ffffff; /* Blanco para las tarjetas de ramos */
+    --text-color: #2c3e50; /* Gris oscuro para el texto */
+    --approved-color: #27ae60; /* Verde para ramos aprobados */
+    --blocked-color: #e74c3c; /* Rojo para ramos bloqueados (fondo sutil) */
+    --border-color: #bdc3c7; /* Gris para bordes */
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Estilos de la malla curricular */
+#curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1300px;
+    margin: 20px auto;
+}
+
+.semester {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.semester h2 {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.course-list {
+    padding: 15px;
+    list-style: none;
+    margin: 0;
+}
+
+.course-item {
+    background-color: #f8f9fa; /* Ligeramente diferente para cada item */
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none; /* Evita selección de texto al hacer clic */
+    position: relative;
+    overflow: hidden;
+}
+
+.course-item:last-child {
+    margin-bottom: 0;
+}
+
+.course-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Estado "aprobado" */
+.course-item.approved {
+    background-color: var(--approved-color);
+    color: white;
+    text-decoration: line-through;
+    font-weight: bold;
+    border-color: var(--approved-color);
+}
+
+.course-item.approved::after {
+    content: '✔'; /* Marca de verificación visual */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+/* Estado "bloqueado" (visual sutil) */
+.course-item.blocked {
+    background-color: rgba(231, 76, 60, 0.1); /* Rojo muy suave */
+    cursor: not-allowed;
+    border-color: var(--blocked-color);
+    opacity: 0.8;
+}
+
+/* Modal de requisitos */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1; /* Por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll si el contenido es muy largo */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    display: flex; /* Para centrar contenido */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-title {
+    color: var(--blocked-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+#required-courses-list {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-top: 0;
+}
+
+#required-courses-list li {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #curriculum-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        padding: 15px;
+    }
+
+    .semester h2 {
+        font-size: 1.1rem;
+    }
+
+    .course-item {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .semester h2 {
+        font-size: 1rem;
+    }
+
+    .course-item {
+        font-size: 0.9rem;
+    }
+
+    .close-button {
+        font-size: 24px;
+        right: 15px;
+    }
+}
 
